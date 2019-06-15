@@ -10,18 +10,20 @@ import UIKit
 
 class NewsListTableViewController: UITableViewController {
     
+    @IBOutlet var loadingIndicatorFooter: UIView!
+    
     var articleArray: [[String: Any]] = []
     var totalItems = 0
-    var currentPage = 0
+    var currentPage = 1
+    var isLoading = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl?.addTarget(self, action: #selector(refreshArticles), for: .valueChanged)
+        
+        self.tableView.tableFooterView = nil
         
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 350
@@ -32,12 +34,10 @@ class NewsListTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return articleArray.count
     }
 
@@ -51,6 +51,13 @@ class NewsListTableViewController: UITableViewController {
         cell.detailLabel?.text = article["description"] as? String
         
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if (indexPath.row == self.articleArray.count - 1 && self.articleArray.count < self.totalItems && !self.isLoading) {
+            currentPage += 1
+            self.loadArticles(page: currentPage)
+        }
     }
  
 
@@ -102,14 +109,16 @@ class NewsListTableViewController: UITableViewController {
     // MARK: - Load Articles
     func loadArticles(page: NSInteger) {
 //        https://newsapi.org/v2/top-headlines?country=sg&category=business&apiKey=104d7bd77d0b46f2802fef857710e84f&page=1
-        let Url = String(format: "https://newsapi.org/v2/top-headlines?country=sg&category=business&apiKey=104d7bd77d0b46f2802fef857710e84f&page=%@",page)
+        let Url = String(format: "https://newsapi.org/v2/top-headlines?country=sg&category=business&apiKey=104d7bd77d0b46f2802fef857710e84f&page=%d",page)
         guard let serviceUrl = URL(string: Url) else { return }
         var request = URLRequest(url: serviceUrl)
         request.httpMethod = "GET"
         request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
         
+        self.isLoading = true
         let session = URLSession.shared
         session.dataTask(with: request) { (data, response, error) in
+            self.isLoading = false
             if let response = response {
                 print("got response from  load news")
                 print(response)
@@ -121,11 +130,14 @@ class NewsListTableViewController: UITableViewController {
                     print("serialization of data from  load news")
                     print(json)
                     if let retrievedData = json as? [String: Any] {
-                        self.articleArray = retrievedData["articles"] as! [[String : Any]]
+                        let newItems = retrievedData["articles"] as! [[String : Any]]
                         self.totalItems = retrievedData["totalResults"] as! Int
                         
-                        DispatchQueue.main.async {
-                            self.tableView.reloadData()
+                        if page == 1 {
+                            self.articleArray = newItems
+                        }
+                        else {
+                            self.articleArray.append(contentsOf: newItems)
                         }
                     }
                 } catch {
@@ -133,7 +145,21 @@ class NewsListTableViewController: UITableViewController {
                     print(error)
                 }
             }
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                if self.articleArray.count < self.totalItems {
+                    self.tableView.tableFooterView = self.loadingIndicatorFooter
+                } else {
+                    self.tableView.tableFooterView = nil
+                }
+                self.refreshControl?.endRefreshing()
+            }
         }.resume()
+    }
+    
+    @objc func refreshArticles() {
+        currentPage = 1;
+        self.loadArticles(page: currentPage)
     }
 
 }

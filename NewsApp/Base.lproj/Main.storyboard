@@ -17,6 +17,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="Iwm-rz-qf6">
+                            <rect key="frame" x="0.0" y="104" width="375" height="80"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="FXE-Lz-elV">
+                                    <rect key="frame" x="177.5" y="30" width="20" height="20"/>
+                                </activityIndicatorView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="FXE-Lz-elV" secondAttribute="bottom" constant="30" id="9Bb-h4-UIz"/>
+                                <constraint firstItem="FXE-Lz-elV" firstAttribute="centerX" secondItem="Iwm-rz-qf6" secondAttribute="centerX" id="hVK-im-Vht"/>
+                                <constraint firstItem="FXE-Lz-elV" firstAttribute="top" secondItem="Iwm-rz-qf6" secondAttribute="top" constant="30" id="iFv-9v-jfp"/>
+                            </constraints>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="NewsListCell" rowHeight="76" id="l6W-O7-F5D" customClass="NewsCell" customModule="NewsApp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="76"/>
@@ -60,6 +75,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="Zik-oZ-JWa"/>
+                    <connections>
+                        <outlet property="loadingIndicatorFooter" destination="Iwm-rz-qf6" id="1uJ-VQ-hHH"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rsv-a3-qkB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
