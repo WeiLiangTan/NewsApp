@@ -15,6 +15,7 @@
 		E70F979F22B4CFC700F02CEB /* NewsAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70F979E22B4CFC700F02CEB /* NewsAppUITests.swift */; };
 		E70F97AD22B4D1D300F02CEB /* NewsListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70F97AC22B4D1D300F02CEB /* NewsListTableViewController.swift */; };
 		E70F97AF22B4DE8500F02CEB /* NewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70F97AE22B4DE8500F02CEB /* NewsCell.swift */; };
+		E73D3A3922B5341F000E845D /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73D3A3822B5341F000E845D /* ContentViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		E70F97A022B4CFC700F02CEB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E70F97AC22B4D1D300F02CEB /* NewsListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsListTableViewController.swift; sourceTree = "<group>"; };
 		E70F97AE22B4DE8500F02CEB /* NewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCell.swift; sourceTree = "<group>"; };
+		E73D3A3822B5341F000E845D /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				E70F978A22B4CFC700F02CEB /* Info.plist */,
 				E70F97AC22B4D1D300F02CEB /* NewsListTableViewController.swift */,
 				E70F97AE22B4DE8500F02CEB /* NewsCell.swift */,
+				E73D3A3822B5341F000E845D /* ContentViewController.swift */,
 			);
 			path = NewsApp;
 			sourceTree = "<group>";
@@ -259,6 +262,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E73D3A3922B5341F000E845D /* ContentViewController.swift in Sources */,
 				E70F97AD22B4D1D300F02CEB /* NewsListTableViewController.swift in Sources */,
 				E70F97AF22B4DE8500F02CEB /* NewsCell.swift in Sources */,
 				E70F977F22B4CFC500F02CEB /* AppDelegate.swift in Sources */,
