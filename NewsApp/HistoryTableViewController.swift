@@ -12,13 +12,28 @@ import CoreData
 class HistoryTableViewController: UITableViewController {
 
     var historyArray: [[String: Any]] = []
+    @IBOutlet weak var editBarBtn: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.retrieveReadArticle()
+        
     }
 
+    @IBAction func editHistory(_ sender: UIBarButtonItem) {
+        
+        if self.tableView.isEditing {
+            self.editBarBtn.title = "Edit"
+            self.tableView.setEditing(false, animated: true)
+        } else {
+            self.editBarBtn.title = "Cancel"
+            self.tableView.setEditing(true, animated: true)
+        }
+        
+        
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {

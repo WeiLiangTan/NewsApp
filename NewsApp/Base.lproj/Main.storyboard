@@ -81,7 +81,7 @@
             </objects>
             <point key="canvasLocation" x="1448.8" y="25.123152709359609"/>
         </scene>
-        <!--History Table View Controller-->
+        <!--History-->
         <scene sceneID="vmf-hC-d4h">
             <objects>
                 <tableViewController id="iqB-la-Y4I" customClass="HistoryTableViewController" customModule="NewsApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -122,6 +122,16 @@
                             <outlet property="delegate" destination="iqB-la-Y4I" id="89v-hp-Ggb"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="History" id="J9l-vk-G23">
+                        <barButtonItem key="rightBarButtonItem" title="Edit" id="3eB-1x-VMc">
+                            <connections>
+                                <action selector="editHistory:" destination="iqB-la-Y4I" id="kjk-ux-PZ1"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="editBarBtn" destination="3eB-1x-VMc" id="S6l-J4-ghZ"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tLe-bf-Ula" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
