@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E701A99422B5E124006CDFDA /* ArticleModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E701A99222B5E124006CDFDA /* ArticleModel.xcdatamodeld */; };
 		E70F977F22B4CFC500F02CEB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70F977E22B4CFC500F02CEB /* AppDelegate.swift */; };
 		E70F978422B4CFC500F02CEB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E70F978222B4CFC500F02CEB /* Main.storyboard */; };
 		E70F978622B4CFC700F02CEB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E70F978522B4CFC700F02CEB /* Assets.xcassets */; };
@@ -36,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E701A99322B5E124006CDFDA /* ArticleModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ArticleModel.xcdatamodel; sourceTree = "<group>"; };
 		E70F977B22B4CFC500F02CEB /* NewsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E70F977E22B4CFC500F02CEB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E70F978322B4CFC500F02CEB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -78,6 +80,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E701A99922B5E6D8006CDFDA /* Data */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		E70F977222B4CFC500F02CEB = {
 			isa = PBXGroup;
 			children = (
@@ -101,6 +110,7 @@
 		E70F977D22B4CFC500F02CEB /* NewsApp */ = {
 			isa = PBXGroup;
 			children = (
+				E701A99922B5E6D8006CDFDA /* Data */,
 				E70F977E22B4CFC500F02CEB /* AppDelegate.swift */,
 				E70F978222B4CFC500F02CEB /* Main.storyboard */,
 				E70F978522B4CFC700F02CEB /* Assets.xcassets */,
@@ -109,6 +119,7 @@
 				E70F97AC22B4D1D300F02CEB /* NewsListTableViewController.swift */,
 				E70F97AE22B4DE8500F02CEB /* NewsCell.swift */,
 				E73D3A3822B5341F000E845D /* ContentViewController.swift */,
+				E701A99222B5E124006CDFDA /* ArticleModel.xcdatamodeld */,
 			);
 			path = NewsApp;
 			sourceTree = "<group>";
@@ -263,6 +274,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E73D3A3922B5341F000E845D /* ContentViewController.swift in Sources */,
+				E701A99422B5E124006CDFDA /* ArticleModel.xcdatamodeld in Sources */,
 				E70F97AD22B4D1D300F02CEB /* NewsListTableViewController.swift in Sources */,
 				E70F97AF22B4DE8500F02CEB /* NewsCell.swift in Sources */,
 				E70F977F22B4CFC500F02CEB /* AppDelegate.swift in Sources */,
@@ -588,6 +600,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		E701A99222B5E124006CDFDA /* ArticleModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				E701A99322B5E124006CDFDA /* ArticleModel.xcdatamodel */,
+			);
+			currentVersion = E701A99322B5E124006CDFDA /* ArticleModel.xcdatamodel */;
+			path = ArticleModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = E70F977322B4CFC500F02CEB /* Project object */;
 }

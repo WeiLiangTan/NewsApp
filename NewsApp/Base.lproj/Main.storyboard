@@ -42,30 +42,20 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gF7-9k-0dg">
-                                            <rect key="frame" x="16.000000000000004" y="19" width="35.333333333333343" height="20.333333333333329"/>
+                                            <rect key="frame" x="16.000000000000004" y="19" width="35.333333333333343" height="36"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="detail" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7lS-cF-hkn">
-                                            <rect key="frame" x="16" y="47.333333333333336" width="42" height="9.6666666666666643"/>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="gF7-9k-0dg" firstAttribute="top" secondItem="BGX-gD-xOf" secondAttribute="topMargin" constant="8" id="9K0-cn-xiZ"/>
-                                        <constraint firstItem="7lS-cF-hkn" firstAttribute="leading" secondItem="BGX-gD-xOf" secondAttribute="leadingMargin" id="G5u-RG-40P"/>
-                                        <constraint firstItem="7lS-cF-hkn" firstAttribute="top" secondItem="gF7-9k-0dg" secondAttribute="bottom" constant="8" id="Mcj-ms-MAg"/>
-                                        <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="7lS-cF-hkn" secondAttribute="bottom" constant="8" id="Rsu-ip-50M"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="gF7-9k-0dg" secondAttribute="bottom" constant="10" id="Ceu-aY-XlK"/>
                                         <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="gF7-9k-0dg" secondAttribute="trailing" constant="8" id="Xdq-2f-1IW"/>
                                         <constraint firstItem="gF7-9k-0dg" firstAttribute="leading" secondItem="BGX-gD-xOf" secondAttribute="leadingMargin" id="oW6-xI-9kf"/>
-                                        <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="7lS-cF-hkn" secondAttribute="trailing" constant="8" id="vgR-0k-pKo"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="detailLabel" destination="7lS-cF-hkn" id="Qwe-fI-CjD"/>
                                     <outlet property="titleLabel" destination="gF7-9k-0dg" id="jd0-SL-0hI"/>
                                     <segue destination="Hsy-n9-MFD" kind="show" identifier="showArticleContent" id="xRP-PR-Vu3"/>
                                 </connections>
@@ -83,7 +73,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rsv-a3-qkB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1448.8" y="25.637181409295355"/>
+            <point key="canvasLocation" x="1448.8" y="25.123152709359609"/>
         </scene>
         <!--Content View Controller-->
         <scene sceneID="JMB-iN-WK5">

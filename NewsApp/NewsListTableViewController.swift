@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class NewsListTableViewController: UITableViewController {
     
@@ -48,7 +49,6 @@ class NewsListTableViewController: UITableViewController {
         let article = self.articleArray[indexPath.row]
         
         cell.titleLabel?.text = article["title"] as? String
-        cell.detailLabel?.text = article["description"] as? String
         
         return cell
     }
@@ -101,8 +101,6 @@ class NewsListTableViewController: UITableViewController {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
         if  segue.identifier == "showArticleContent",
             let destination = segue.destination as? ContentViewController,
             let selectedIndex = tableView.indexPathForSelectedRow?.row
@@ -115,7 +113,7 @@ class NewsListTableViewController: UITableViewController {
     // MARK: - Load Articles
     func loadArticles(page: NSInteger) {
 //        https://newsapi.org/v2/top-headlines?country=sg&category=business&apiKey=104d7bd77d0b46f2802fef857710e84f&page=1
-        let Url = String(format: "https://newsapi.org/v2/top-headlines?country=sg&category=business&apiKey=104d7bd77d0b46f2802fef857710e84f&page=%d",page)
+        let Url = "https://newsapi.org/v2/top-headlines?country=sg&category=business&apiKey=104d7bd77d0b46f2802fef857710e84f&page=\(page)"
         guard let serviceUrl = URL(string: Url) else { return }
         var request = URLRequest(url: serviceUrl)
         request.httpMethod = "GET"
@@ -125,10 +123,7 @@ class NewsListTableViewController: UITableViewController {
         let session = URLSession.shared
         session.dataTask(with: request) { (data, response, error) in
             self.isLoading = false
-            if let response = response {
-                print("got response from  load news")
-                print(response)
-            }
+            
             if let data = data {
                 print("got data from  load news")
                 do {
@@ -140,9 +135,15 @@ class NewsListTableViewController: UITableViewController {
                         self.totalItems = retrievedData["totalResults"] as! Int
                         
                         if page == 1 {
+                            DispatchQueue.main.async {
+                                self.saveArticles(newItems, reset: true)
+                            }
                             self.articleArray = newItems
                         }
                         else {
+                            DispatchQueue.main.async {
+                                self.saveArticles(newItems, reset: false)
+                            }
                             self.articleArray.append(contentsOf: newItems)
                         }
                     }
@@ -152,6 +153,9 @@ class NewsListTableViewController: UITableViewController {
                 }
             }
             DispatchQueue.main.async {
+                if (error != nil) {
+                    self.retrieveArticle()
+                }
                 self.tableView.reloadData()
                 if self.articleArray.count < self.totalItems {
                     self.tableView.tableFooterView = self.loadingIndicatorFooter
@@ -166,6 +170,92 @@ class NewsListTableViewController: UITableViewController {
     @objc func refreshArticles() {
         currentPage = 1;
         self.loadArticles(page: currentPage)
+    }
+    
+    // Mark : Data
+    
+    func saveArticles(_ articles:[[String: Any]], reset:Bool) {
+        guard let apppDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        
+        let managedContext = apppDelegate.persistentContainer.viewContext
+        
+        //remove all item
+        
+        if (reset) {
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Article")
+            
+            do {
+                let result = try managedContext.fetch(fetchRequest) as! [NSManagedObject]
+                for item in result {
+                    managedContext.delete(item)
+                }
+            } catch let error as NSError {
+                print("Failed to clear data before saving. \(error), \(error.userInfo)")
+            }
+        }
+        
+        //insert new item
+        
+        let articleEntity = NSEntityDescription.entity(forEntityName: "Article", in: managedContext)!
+        
+        for article in articles {
+            let newArticle = NSManagedObject(entity: articleEntity, insertInto: managedContext)
+            if let title = article["title"] as? String {
+                newArticle.setValue(title, forKey: "title")
+            }
+            if let content = article["content"] as? String {
+                newArticle.setValue(content, forKey: "content")
+            }
+            if let url = article["url"] as? String {
+                newArticle.setValue(url, forKey: "url")
+            }
+            if let urlToImage = article["urlToImage"] as? String {
+                newArticle.setValue(urlToImage, forKey: "urlToImage")
+            }
+        }
+        
+        do {
+            try managedContext.save()
+        } catch let error as NSError {
+            print("Failed to save. \(error), \(error.userInfo)")
+        }
+    }
+    
+    func retrieveArticle() {
+        guard let apppDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        
+        let managedContext = apppDelegate.persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Article")
+        
+        do {
+            let result = try managedContext.fetch(fetchRequest) as! [NSManagedObject]
+            let converted = self.convertToDictionaryArray(moArray: result)
+            if converted.count > 0 {
+                self.articleArray = converted
+            }
+        } catch let error as NSError {
+            print("Failed to retrieve. \(error), \(error.userInfo)")
+        }
+    }
+    
+    func convertToDictionaryArray(moArray: [NSManagedObject]) -> [[String: Any]] {
+        var dictionaryArray: [[String: Any]] = []
+        for item in moArray {
+            var dict: [String: Any] = [:]
+            for attribute in item.entity.attributesByName {
+                if let value = item.value(forKey: attribute.key) {
+                    dict[attribute.key] = value
+                }
+                
+            }
+            dictionaryArray.append(dict)
+        }
+        return dictionaryArray
     }
 
 }

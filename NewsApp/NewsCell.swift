@@ -11,7 +11,6 @@ import UIKit
 class NewsCell: UITableViewCell {
     
     @IBOutlet var titleLabel: UILabel?
-    @IBOutlet var detailLabel: UILabel?
     
 
     override func awakeFromNib() {
