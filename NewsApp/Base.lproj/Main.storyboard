@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--News List Table View Controller-->
+        <!--News-->
         <scene sceneID="Dg4-RV-Gff">
             <objects>
                 <tableViewController id="jlI-Pg-r7G" customClass="NewsListTableViewController" customModule="NewsApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -66,7 +66,13 @@
                             <outlet property="delegate" destination="jlI-Pg-r7G" id="hIu-tu-3Mp"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="Zik-oZ-JWa"/>
+                    <navigationItem key="navigationItem" title="News" id="Zik-oZ-JWa">
+                        <barButtonItem key="rightBarButtonItem" title="History" id="8rC-VL-1SI">
+                            <connections>
+                                <segue destination="iqB-la-Y4I" kind="show" id="1yn-jP-WJ7"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="loadingIndicatorFooter" destination="Iwm-rz-qf6" id="1uJ-VQ-hHH"/>
                     </connections>
@@ -74,6 +80,52 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rsv-a3-qkB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1448.8" y="25.123152709359609"/>
+        </scene>
+        <!--History Table View Controller-->
+        <scene sceneID="vmf-hC-d4h">
+            <objects>
+                <tableViewController id="iqB-la-Y4I" customClass="HistoryTableViewController" customModule="NewsApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="5l2-Ma-eR2">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HistoryCell" id="8lC-os-j3D" customClass="HistoryCell" customModule="NewsApp" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8lC-os-j3D" id="n37-PZ-3t9">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iDH-PC-PfI">
+                                            <rect key="frame" x="24" y="16" width="327" height="12"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottomMargin" secondItem="iDH-PC-PfI" secondAttribute="bottom" constant="5" id="9zg-ya-hzD"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="iDH-PC-PfI" secondAttribute="trailing" constant="8" id="kM3-bR-Xi3"/>
+                                        <constraint firstItem="iDH-PC-PfI" firstAttribute="leading" secondItem="n37-PZ-3t9" secondAttribute="leadingMargin" constant="8" id="sBg-QJ-jBh"/>
+                                        <constraint firstItem="iDH-PC-PfI" firstAttribute="top" secondItem="n37-PZ-3t9" secondAttribute="topMargin" constant="5" id="ypJ-ty-6ld"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="titleLbl" destination="iDH-PC-PfI" id="6p7-o4-dnF"/>
+                                    <segue destination="Hsy-n9-MFD" kind="show" identifier="showReadArticleContent" id="UGz-gW-F3J"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="iqB-la-Y4I" id="HP0-uc-sjv"/>
+                            <outlet property="delegate" destination="iqB-la-Y4I" id="89v-hp-Ggb"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tLe-bf-Ula" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1448.8" y="838.66995073891633"/>
         </scene>
         <!--Content View Controller-->
         <scene sceneID="JMB-iN-WK5">
@@ -171,4 +223,7 @@
             <point key="canvasLocation" x="509.60000000000002" y="25.637181409295355"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="UGz-gW-F3J"/>
+    </inferredMetricsTieBreakers>
 </document>

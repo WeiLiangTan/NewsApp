@@ -11,7 +11,15 @@
             </uniquenessConstraint>
         </uniquenessConstraints>
     </entity>
+    <entity name="ReadArticle" representedClassName="ReadArticle" syncable="YES" codeGenerationType="class">
+        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastReadDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="urlToImage" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <elements>
         <element name="Article" positionX="-63" positionY="-18" width="128" height="105"/>
+        <element name="ReadArticle" positionX="-63" positionY="9" width="128" height="120"/>
     </elements>
 </model>

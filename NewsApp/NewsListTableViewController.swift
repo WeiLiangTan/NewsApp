@@ -105,6 +105,7 @@ class NewsListTableViewController: UITableViewController {
             let destination = segue.destination as? ContentViewController,
             let selectedIndex = tableView.indexPathForSelectedRow?.row
         {
+            self.updateReadArticle(self.articleArray[selectedIndex])
             destination.article = self.articleArray[selectedIndex]
         }
     }
@@ -258,4 +259,53 @@ class NewsListTableViewController: UITableViewController {
         return dictionaryArray
     }
 
+    //history
+    func updateReadArticle(_ article: [String: Any]) {
+        guard let apppDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        
+        let managedContext = apppDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ReadArticle")
+        fetchRequest.predicate = NSPredicate(format: "url = %@", article["url"] as! CVarArg )
+        
+        do {
+            let result = try managedContext.fetch(fetchRequest) as! [NSManagedObject]
+            if result.count != 0 {
+                // update
+                let managedObject = result[0]
+                managedObject.setValue(Date(), forKey: "lastReadDate")
+                
+                try managedContext.save()
+            } else {
+                //insert new item
+                
+                let articleEntity = NSEntityDescription.entity(forEntityName: "ReadArticle", in: managedContext)!
+                
+                let newArticle = NSManagedObject(entity: articleEntity, insertInto: managedContext)
+                if let title = article["title"] as? String {
+                    newArticle.setValue(title, forKey: "title")
+                }
+                if let content = article["content"] as? String {
+                    newArticle.setValue(content, forKey: "content")
+                }
+                if let url = article["url"] as? String {
+                    newArticle.setValue(url, forKey: "url")
+                }
+                if let urlToImage = article["urlToImage"] as? String {
+                    newArticle.setValue(urlToImage, forKey: "urlToImage")
+                }
+                newArticle.setValue(Date(), forKey: "lastReadDate")
+                
+                do {
+                    try managedContext.save()
+                } catch let error as NSError {
+                    print("Failed to save. \(error), \(error.userInfo)")
+                }
+            }
+        } catch let error as NSError {
+            print("Failed to clear data before saving. \(error), \(error.userInfo)")
+        }
+ 
+    }
 }
